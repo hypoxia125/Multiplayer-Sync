@@ -1,52 +1,61 @@
-[] spawn {
-	scriptName "MPSync.initPlayer";
+scriptName "MPSync.initPlayer";
 
-	// Blank Screen
-	[1] call MPSync_fnc_blankScreen;
+[1, true] call MPSync_fnc_blankScreen;
 
-	// Select Template
-	private _respawnCfg = call MPSync_fnc_getRespawnConfig;
-	_respawnCfg params ["_respawnOnStart", "_templates"];
+// Select Template
+private _respawnCfg = call MPSync_fnc_getRespawnConfig;
+_respawnCfg params ["_respawnOnStart", "_templates"];
 
-	// Menu Position w/ Respawn Template
-	if (_respawnOnStart == 1 && "MenuPosition" in _templates) then {
-		waitUntil {
-			// registered
-			!(isNull player)
-			&&
-			// player respawned
-			{
-				!(alive player)
-				&&
-				{ visiblemap };
-			}
-		};
-	}
-	// everything else
-	else {
-		waitUntil {
-			// registered
-			!(isNull player)
-			&&
-			// player spawned
-			{ alive player };
-		};
-	};
-
-	// disable player
-	[player, false] remoteExec ["enableSimulationGlobal", 2];
-	[player, true] remoteExec ["hideObjectGlobal", 2];
-
-	// wait for server to tell clients to wake up
+// Menu Position w/ Respawn Template
+if (_respawnOnStart == 1 && "MenuPosition" in _templates) then {
 	waitUntil {
-		missionNamespace getVariable ["MPSync_PlayersSpawned", false];
+		// registered
+		!(isNull player)
+		&&
+		// player respawned
+		{
+			!(alive player)
+			&&
+			{ visiblemap };
+		}
 	};
 
-	// wake clients up
-	[0] call MPSync_fnc_blankScreen;
-	[player, true] remoteExec ["enableSimulationGlobal", 2];
-	[player, false] remoteExec ["hideObjectGlobal", 2];
-
-	// script complete
-	diag_log format ["MPSync.initPlayer | Completed for %2", name player];
+	[0, true] call MPSync_fnc_blankScreen;
+}
+// everything else
+else {
+	waitUntil {
+		// registered
+		!(isNull player)
+		&&
+		// player spawned
+		{ alive player };
+	};
 };
+
+waitUntil { alive player };
+
+[1] call MPSync_fnc_blankScreen;
+
+// tell server player has spawned
+diag_log format ["MPSync.initPlayer | %1 has spawned", name player];
+player setVariable ["MPSync_PlayerSpawned", true, true];
+
+// disable player
+diag_log format ["MPSync.initPlayer | Disabling: %1", name player];
+[player, false] remoteExec ["enableSimulationGlobal", 2];
+[player, true] remoteExec ["hideObjectGlobal", 2];
+
+// wait for server to tell clients to wake up
+waitUntil {
+	missionNamespace getVariable ["MPSync_PlayersSpawned", false];
+};
+
+// wake clients up
+diag_log format ["MPSync.initPlayer | Waking Up: %1", name player];
+[0] call MPSync_fnc_blankScreen;
+[player, true] remoteExec ["enableSimulationGlobal", 2];
+[player, false] remoteExec ["hideObjectGlobal", 2];
+
+// script complete
+diag_log format ["MPSync.initPlayer | Completed for %2", name player];

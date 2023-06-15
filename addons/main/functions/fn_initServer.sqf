@@ -1,17 +1,21 @@
-[] spawn {
-	scriptName "MPSync.initServer";
+params [
+	["_minPlayers", call MPSync_fnc_getTotalSlots, [-1]],
+	["_timeout", 60, [-1]]
+];
 
-	waitUntil {
-		if (serverTime % 25 == 0) then {
-			// waiting for players notification
-		};
+scriptName "MPSync.initServer";
 
-		call MPSync_fnc_allPlayersSpawned;
-	};
+if !(canSuspend) exitWith { _this spawn MPSync_fnc_initServer };
 
-	missionNamespace setVariable ["MPSync_PlayersSpawned", true, true];
-	missionNamespace setVariable ["MPSync_EndTime", serverTime, true];
-
-	// script complete
-	diag_log format ["MPSync.initServer | Completed @ %1", serverTime];
+private _currentTime = serverTime;
+waitUntil {
+	call MPSync_fnc_allPlayersSpawned
+	||
+	serverTime >= _currentTime + _timeout;
 };
+
+missionNamespace setVariable ["MPSync_PlayersSpawned", true, true];
+missionNamespace setVariable ["MPSync_EndTime", serverTime, true];
+
+// script complete
+diag_log format ["MPSync.initServer | Completed @ %1", serverTime];

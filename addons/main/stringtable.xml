@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="MPSync">
+  <Package name="MPSync">
+    <Container name="MPSync">
+      <Key ID="STR_MPSync_notification_waitingforplayers">
+        <Original>Waiting For Players</Original>
+        <English>Waiting For Players</English>
+      </Key>
+      <Key ID="STR_MPSync_notification_playersready">
+        <Original>Players Ready</Original>
+        <English>Players Ready</English>
+      </Key>
+    </Container>
+  </Package>
+</Project>

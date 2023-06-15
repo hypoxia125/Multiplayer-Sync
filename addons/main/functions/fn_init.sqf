@@ -1,23 +1,30 @@
 params [
-	["_minPlayers", call MPSync_fnc_getTotalSlots, [-1]],
+	["_minPlayers", 1, [-1]],
 	["_timeout", 60, [-1]]
 ];
 
+if !(canSuspend) exitWith { _this spawn MPSync_fnc_init };
+
 if !(isMultiplayer) exitWith {};
+if (!isNil { missionNamespace getVariable "MPSync_StartTime" }) exitWith {};
 if (!isNil { missionNamespace getVariable "MPSync_EndTime" }) exitWith {};
+
+// Setting parameters
+diag_log format ["MPSync.init | Setting Parameters: %1", _this];
+missionNamespace setVariable ["MPSync_Parameters", _this, true];
 
 if (isServer) then {
 	diag_log format ["MPSync.initServer | Starting"];
 
 	missionNamespace setVariable ["MPSync_StartTime", serverTime, true];
 
-	call MPSync_fnc_initServer;
+	[_minPlayers, _timeout] spawn MPSync_fnc_initServer;
 };
 
 if (hasInterface) then {
 	diag_log format ["MPSync.initPlayer | Starting"];
 
-	call MPSync_fnc_initPlayer;
+	[_minPlayers, _timeout] spawn MPSync_fnc_initPlayer;
 };
 
 waitUntil {
