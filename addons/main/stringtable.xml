@@ -10,6 +10,36 @@
         <Original>Players Ready</Original>
         <English>Players Ready</English>
       </Key>
+      <Key ID="STR_MPSync_ModName">
+        <Original>MPSync</Original>
+        <English>MPSync</English>
+      </Key>
+    </Container>
+    <Container name="Module">
+      <Key ID="STR_MPSync_Module_DisplayName">
+        <Original>MPSync</Original>
+        <English>MPSync</English>
+      </Key>
+      <Key ID="STR_MPSync_Module_MinPlayers_DisplayName">
+        <Original>Minimum Players</Original>
+        <English>Minimum Players</English>
+      </Key>
+      <Key ID="STR_MPSync_Module_MinPlayers_Tooltip">
+        <Original>Minimum players until ready (suggest setting same as # of player units).</Original>
+        <English>Minimum players until ready (suggest setting same as # of player units)</English>
+      </Key>
+      <Key ID="STR_MPSync_Module_Timeout_DisplayName">
+        <Original>Timeout</Original>
+        <English>Timeout</English>
+      </Key>
+      <Key ID="STR_MPSync_Module_Timeout_Tooltip">
+        <Original>Time (s) until players are ready, regardless of how many are ready.</Original>
+        <English>Time (s) until players are ready, regardless of how many are ready.</English>
+      </Key>
+      <Key ID="STR_MPSync_ModuleInit_ModuleDescription_Description">
+        <Original>Starts the MPSync upon mission start. Will wait for all players in the lobby to be spawned and ready before starting mission.</Original>
+        <English>Starts the MPSync upon mission start. Will wait for all players in the lobby to be spawned and ready before starting mission.</English>
+      </Key>
     </Container>
   </Package>
 </Project>

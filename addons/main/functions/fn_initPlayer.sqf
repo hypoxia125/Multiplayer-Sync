@@ -7,29 +7,45 @@ private _respawnCfg = call MPSync_fnc_getRespawnConfig;
 _respawnCfg params ["_respawnOnStart", "_templates"];
 
 // Menu Position w/ Respawn Template
-if (_respawnOnStart == 1 && "MenuPosition" in _templates) then {
-	waitUntil {
-		// registered
-		!(isNull player)
-		&&
-		// player respawned
-		{
-			!(alive player)
+private _respawnAndMenu = (_respawnOnStart == 1 && "MenuPosition" in _templates);
+private _respawn = (_respawnOnStart == 1);
+
+switch true do {
+
+	case _respawnAndMenu: {
+		waitUntil {
+			// registered
+			!(isNull player)
 			&&
-			{ visiblemap };
-		}
+			// player respawned
+			{
+				!(alive player)
+				&&
+				{ visiblemap };
+			};
+		};
+
+		[0, true] call MPSync_fnc_blankScreen;
 	};
 
-	[0, true] call MPSync_fnc_blankScreen;
-}
-// everything else
-else {
-	waitUntil {
-		// registered
-		!(isNull player)
-		&&
-		// player spawned
-		{ alive player };
+	case _respawn: {
+		waitUntil {
+			// registered
+			!(isNull player)
+			&&
+			// player respawned
+			{ !(alive player) }
+		};
+	};
+
+	default {
+		waitUntil {
+			// registered
+			!(isNull player)
+			&&
+			// player spawned
+			{ alive player };
+		};
 	};
 };
 

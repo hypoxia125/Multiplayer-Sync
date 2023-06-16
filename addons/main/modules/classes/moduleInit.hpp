@@ -3,7 +3,8 @@ class MPSync_ModuleInit: Module_F
 	scope = 2;
 	displayName = "$STR_MPSync_Module_DisplayName";
 	author = "Hypoxic";
-	icon = "";
+	icon = "h\mpsync\main\data\mpsync-module-icon-128.paa";
+	portrait = "h\mpsync\main\data\mpsync-module-icon-128.paa";
 	category = "Multiplayer";
 
 	function = "MPSync_fnc_moduleInit";
