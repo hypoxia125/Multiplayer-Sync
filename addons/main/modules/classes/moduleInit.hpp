@@ -11,7 +11,7 @@ class MPSync_ModuleInit: Module_F
 	functionPriority = 1;
 	isGlobal = 1;
 	isTriggerActivated = 0;
-	isDisposable = 1;
+	isDisposable = 0;
 	is3DEN = 0;
 	curatorInfoType = "";
 
