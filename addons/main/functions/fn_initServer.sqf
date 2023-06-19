@@ -7,15 +7,15 @@ scriptName "MPSync.initServer";
 
 if !(canSuspend) exitWith { _this spawn MPSync_fnc_initServer };
 
-private _currentTime = serverTime;
+private _currentTime = time;
 waitUntil {
 	call MPSync_fnc_allPlayersSpawned
 	||
-	serverTime >= _currentTime + _timeout;
+	time >= _currentTime + _timeout;
 };
 
 missionNamespace setVariable ["MPSync_PlayersSpawned", true, true];
-missionNamespace setVariable ["MPSync_EndTime", serverTime, true];
+missionNamespace setVariable ["MPSync_EndTime", time, true];
 
 // script complete
-diag_log format ["MPSync.initServer | Completed @ %1", serverTime];
+diag_log format ["MPSync.initServer | Completed @ %1", time];

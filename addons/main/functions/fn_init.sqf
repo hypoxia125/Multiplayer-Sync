@@ -17,7 +17,7 @@ if (isServer) then {
 	if (!isNil { missionNamespace getVariable "MPSync_StartTime" }) exitWith {};
 	if (!isNil { missionNamespace getVariable "MPSync_EndTime" }) exitWith {};
 
-	missionNamespace setVariable ["MPSync_StartTime", serverTime, true];
+	missionNamespace setVariable ["MPSync_StartTime", time, true];
 
 	[_minPlayers, _timeout] spawn MPSync_fnc_initServer;
 };
