@@ -6,8 +6,6 @@ params [
 if !(canSuspend) exitWith { _this spawn MPSync_fnc_init };
 
 if !(isMultiplayer) exitWith {};
-if (!isNil { missionNamespace getVariable "MPSync_StartTime" }) exitWith {};
-if (!isNil { missionNamespace getVariable "MPSync_EndTime" }) exitWith {};
 
 // Setting parameters
 diag_log format ["MPSync.init | Setting Parameters: %1", _this];
@@ -15,6 +13,9 @@ missionNamespace setVariable ["MPSync_Parameters", _this, true];
 
 if (isServer) then {
 	diag_log format ["MPSync.initServer | Starting"];
+
+	if (!isNil { missionNamespace getVariable "MPSync_StartTime" }) exitWith {};
+	if (!isNil { missionNamespace getVariable "MPSync_EndTime" }) exitWith {};
 
 	missionNamespace setVariable ["MPSync_StartTime", serverTime, true];
 
