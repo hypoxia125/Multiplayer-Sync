@@ -7,6 +7,15 @@ scriptName "MPSync.initServer";
 
 if !(canSuspend) exitWith { _this spawn MPSync_fnc_initServer };
 
+waitUntil {
+	private _players = [true] call MPSync_fnc_getPlayers;
+	_players findIf {
+		private _spawned = _x getVariable ["MPSync_PlayerSpawned", false];
+		(_spawned)
+	} != -1
+};
+diag_log format ["MPSync.initServer | At least one player has spawned... | Time: %1", time toFixed 0];
+
 private _currentTime = time;
 waitUntil {
 	call MPSync_fnc_allPlayersSpawned
