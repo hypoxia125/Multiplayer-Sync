@@ -7,13 +7,6 @@ if !(canSuspend) exitWith { _this spawn MPSync_fnc_init };
 
 if !(isMultiplayer) exitWith {};
 
-// Get Respawn Time and Add Difference
-private _respawnTime = getNumber (missionConfigFile >> "respawnDelay");
-private _respawnOnStart = getNumber (missionConfigFile >> "respawnOnStart");
-if (_respawnTime > 0 && { _respawnOnStart == 1 }) then {
-	_timeout = _timeout + _respawnTime
-};
-
 // Setting parameters
 diag_log format ["MPSync.init | Setting Parameters: %1", _this];
 missionNamespace setVariable ["MPSync_Parameters", _this, true];
