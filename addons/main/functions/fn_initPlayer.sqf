@@ -24,8 +24,6 @@ switch true do {
 				{ visiblemap };
 			};
 		};
-
-		[0, true] call MPSync_fnc_blankScreen;
 	};
 
 	case _respawn: {
@@ -61,6 +59,7 @@ player setVariable ["MPSync_PlayerSpawned", true, true];
 diag_log format ["MPSync.initPlayer | Disabling: %1", name player];
 [player, false] remoteExec ["enableSimulationGlobal", 2];
 [player, true] remoteExec ["hideObjectGlobal", 2];
+player allowDamage false;
 
 // wait for server to tell clients to wake up
 waitUntil {
@@ -72,6 +71,7 @@ diag_log format ["MPSync.initPlayer | Waking Up: %1", name player];
 [0] call MPSync_fnc_blankScreen;
 [player, true] remoteExec ["enableSimulationGlobal", 2];
 [player, false] remoteExec ["hideObjectGlobal", 2];
+player allowDamage true;
 
 // script complete
 diag_log format ["MPSync.initPlayer | Completed for %2", name player];
